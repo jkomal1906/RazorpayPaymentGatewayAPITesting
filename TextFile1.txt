@@ -1,0 +1,15 @@
+# This EF Core command scaffolds a DbContext and entity classes from an existing database.
+# It connects to a SQL Server database using the provided connection string and generates the models in the specified directories.
+# The -Force option overwrites existing files.
+# The -DataAnnotations option uses data annotation attributes to configure the model.
+# The -UseDatabaseNames option ensures that the generated classes use the exact names from the database.
+# The command specifies the output directory for the models and the context directory for the DbContext class.
+# The generated DbContext class will be named DbTotRazorPayContext.
+# The command uses the Microsoft.EntityFrameworkCore.SqlServer provider.
+
+
+
+# Here is the complete command:
+Scaffold-DbContext "Server=115.124.108.190;Database=db_totFPS;User Id=totuserservice;Password=Eiyn9634*;TrustServerCertificate=True" 
+Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Context DbTotRazorPayContext -ContextDir Data -DataAnnotations -UseDatabaseNames -Force
+

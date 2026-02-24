@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36301.6
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MetaData", "MetaData", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		TextFile1.txt = TextFile1.txt
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorpayPaymentAPI", "RazorpayPaymentAPI\RazorpayPaymentAPI.csproj", "{EB96705C-B93C-4D28-83C0-18C190BD2E92}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorpayPaymentAPI.BLL", "RazorpayPaymentAPI.BLL\RazorpayPaymentAPI.BLL.csproj", "{4ADEEBFA-9B71-447A-829A-C2FF31330B99}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorpayPaymentAPI.Common", "PazorpayPaymentAPI.Common\RazorpayPaymentAPI.Common.csproj", "{6000E634-0D9F-411B-BE3E-B01C683DEB19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorpayPaymentAPI.DAL", "RazorpayPaymentAPI.DAL\RazorpayPaymentAPI.DAL.csproj", "{CF5560BA-A29D-46F3-8790-5C04B8393DDF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EB96705C-B93C-4D28-83C0-18C190BD2E92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB96705C-B93C-4D28-83C0-18C190BD2E92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB96705C-B93C-4D28-83C0-18C190BD2E92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB96705C-B93C-4D28-83C0-18C190BD2E92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4ADEEBFA-9B71-447A-829A-C2FF31330B99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4ADEEBFA-9B71-447A-829A-C2FF31330B99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4ADEEBFA-9B71-447A-829A-C2FF31330B99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4ADEEBFA-9B71-447A-829A-C2FF31330B99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6000E634-0D9F-411B-BE3E-B01C683DEB19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6000E634-0D9F-411B-BE3E-B01C683DEB19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6000E634-0D9F-411B-BE3E-B01C683DEB19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6000E634-0D9F-411B-BE3E-B01C683DEB19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF5560BA-A29D-46F3-8790-5C04B8393DDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF5560BA-A29D-46F3-8790-5C04B8393DDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF5560BA-A29D-46F3-8790-5C04B8393DDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF5560BA-A29D-46F3-8790-5C04B8393DDF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F76D188B-A011-428D-9DBA-8CC1E9F64C54}
+	EndGlobalSection
+EndGlobal
