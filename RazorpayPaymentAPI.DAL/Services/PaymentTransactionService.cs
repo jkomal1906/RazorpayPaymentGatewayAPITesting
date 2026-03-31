@@ -113,11 +113,13 @@ namespace RazorpayPaymentAPI.DAL.Services
 
             using var command = new SqlCommand("SP_ActivateCourseEnrollment", connection);
             command.CommandType = CommandType.StoredProcedure;
+
             command.Parameters.Add("@RazorpayOrderId", SqlDbType.NVarChar, 100)
                    .Value = razorpayOrderId;
 
+            command.CommandTimeout = 60;
+
             await command.ExecuteNonQueryAsync();
         }
-
     }
 }

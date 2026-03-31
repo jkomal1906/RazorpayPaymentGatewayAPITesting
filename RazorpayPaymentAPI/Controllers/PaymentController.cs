@@ -5,8 +5,9 @@ using RazorpayPaymentAPI.Common.DTOs;
 using System.Text;
 namespace RazorpayPaymentAPI.Controllers
 {
-    [ApiController]
+    
     [Route("api/[controller]")]
+    [ApiController]
     public class PaymentController : ControllerBase
     {
         private readonly IRazorpayPaymentServices _paymentService;
@@ -75,29 +76,34 @@ namespace RazorpayPaymentAPI.Controllers
         [HttpPost("webhook")]
         public async Task<IActionResult> Webhook()
         {
-            // Enable reading body multiple times (important)
-            Request.EnableBuffering();
-
-            string body;
-            using (var reader = new StreamReader(
-                Request.Body,
-                Encoding.UTF8,
-                detectEncodingFromByteOrderMarks: false,
-                leaveOpen: true))
+            try
             {
-                body = await reader.ReadToEndAsync();
-                Request.Body.Position = 0;
+                Request.EnableBuffering();
+                Request.ReadFromJsonAsync<object>(); // Read the body to enable buffering for subsequent reads
+                string body = await new StreamReader(Request.Body).ReadToEndAsync();
+
+                Console.WriteLine("===== WEBHOOK RECEIVED =====");
+                Console.WriteLine(body);
+
+                var signature = Request.Headers["X-Razorpay-Signature"].FirstOrDefault();
+
+                Console.WriteLine("Signature: " + signature);
+
+                if (string.IsNullOrEmpty(body))
+                {
+                    Console.WriteLine("Body is empty");
+                    return Ok();
+                }
+
+                await _paymentService.ProcessWebhookAsync(body, signature);
+
+                return Ok();
             }
-
-            var signature = Request.Headers["X-Razorpay-Signature"].ToString();
-
-            if (string.IsNullOrEmpty(signature))
-                return BadRequest("Missing webhook signature.");
-
-            await _paymentService.ProcessWebhookAsync(body, signature);
-
-            return Ok();
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return Ok();
+            }
         }
-
     }
 }

@@ -104,11 +104,9 @@ namespace RazorpayPaymentAPI.BLL.BusinessServices
         //Webhook Verification
         public async Task ProcessWebhookAsync(string body, string signature)
         {
-            // Verify Signature
             if (!VerifyWebhookSignature(body, signature, _webhookSecret))
                 throw new Exception("Invalid webhook signature.");
 
-            // Deserialize
             var webhook = JsonConvert.DeserializeObject<RazorpayWebhookDto>(body);
 
             if (webhook?.Payload?.Payment?.Entity == null)
@@ -143,7 +141,7 @@ namespace RazorpayPaymentAPI.BLL.BusinessServices
                 return;
 
             if (order.PaymentStatus == "Paid")
-                return; // Idempotent safe
+                return; // prevents duplicate webhook processing
 
             await _service.UpdatePaymentStatusAsync(
                 orderId,

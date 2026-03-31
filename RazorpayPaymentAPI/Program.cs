@@ -13,44 +13,57 @@ namespace RazorpayPaymentAPI
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Register DbContext
+            // DB Context
             builder.Services.AddDbContext<DbTotRazorPayContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            // Register DAL service
+            // DAL
             builder.Services.AddScoped<IPaymentTransactionService, PaymentTransactionService>();
 
-            // Register BLL Razorpay service with factory
+            // Razorpay Service
             builder.Services.AddScoped<IRazorpayPaymentServices>(provider =>
             {
                 var paymentTransactionService = provider.GetRequiredService<IPaymentTransactionService>();
                 var key = builder.Configuration["Razorpay:Key"];
                 var secret = builder.Configuration["Razorpay:Secret"];
                 var webhookSecret = builder.Configuration["Razorpay:WebhookSecret"];
-                return new RazorpayPaymentService(key, secret,webhookSecret ,paymentTransactionService);
+
+                return new RazorpayPaymentService(key, secret, webhookSecret, paymentTransactionService);
             });
 
-            // Add controllers & swagger
+            // Kestrel limits
+            builder.WebHost.ConfigureKestrel(options =>
+            {
+                options.Limits.MaxRequestBodySize = null;
+                options.Limits.MinRequestBodyDataRate = null;
+                options.Limits.RequestHeadersTimeout = TimeSpan.FromMinutes(5);
+            });
+
+
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
+            // Enable request buffering globally
+            app.Use(async (context, next) =>
+            {
+                context.Request.EnableBuffering();
+                await next();
+            });
+
+            //DO NOT use HTTPS redirect with ngrok
+            // app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
-
             app.MapControllers();
-
             app.Run();
         }
     }
